@@ -14,6 +14,9 @@ import { CreateOrderDto } from './dto/create-order.dto';
 import { OrderStatus } from './order-status.enum';
 import { Order } from './order.entity';
 import { OrderStatusValidationPipe } from './pipes/order-status.pipe';
+import { Logger } from '@nestjs/common';
+
+const logger = new Logger('OrderController')
 
 @Controller('order')
 export class OrderController {
@@ -35,6 +38,7 @@ export class OrderController {
     @Param('id') id: string,
     @Body('status', OrderStatusValidationPipe) status: OrderStatus,
   ): Promise<Order> {
+    logger.log(`Status to update for order ID ${id} of ${status}`)
     return this.orderService.updateOrderStatus(id, status);
   }
 

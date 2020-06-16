@@ -48,11 +48,7 @@ export class OrderService {
 
   async updateOrderStatus(id: string, status: OrderStatus): Promise<Order> {
     const order = await this.getOrderById(id);
-
-    if (status === OrderStatus.CANCELLED || status === OrderStatus.DELIVERED) {
-      throw new Error('Unable to update status as order is invalid');
-    }
-
+    
     order.status = status;
     order.updatedOn = new Date();
 
